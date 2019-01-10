@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Mi segunda DApp</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+          <h1 class="text-center">Mi segunda DApp</h1>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+
+      <div id="app" class="container">
+          <div class="row">
+              <div class="col-sm-6" id="send-transaction-form">
+                  <div class="form-group row">
+                      <h3>Ingresa el Usuario</h3>
+                      <label for="cuenta" class="col-sm-3 col-form-label">
+                          Cuenta
+                      </label>
+                      <div class="col-sm-9">
+                          <input class="form-control" id="cuenta"
+                          placeholder="0x1" autofocus>
+                      </div>
+                      <label for="correo" class="col-sm-3 col-form-label">
+                        Correo
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" id="correo"
+                        placeholder="abc@mail.com">
+                    </div>
+                    <label for="edad" class="col-sm-3 col-form-label">
+                      Edad
+                  </label>
+                  <div class="col-sm-9">
+                      <input class="form-control" id="edad"
+                      placeholder="19">
+                  </div>
+                  <label for="indice" class="col-sm-3 col-form-label">
+                    Indice
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control" id="indice">
+                </div>
+                  </div>
+                  <div class="container col-sm-12 text-center">
+                  <button id="registrar" class="btn btn-primary">Registrar Usuario</button>
+                  <button id="informacion" class="btn btn-success">Información Usuario</button>
+                </div>
+                  <div class="container col-sm-12 text-center">
+                  <button id="cantidad" class="btn btn-link">Cantidad Usuarios</button>
+                  <button id="cuentas" class="btn btn-link">Cuentas Usuarios</button>
+                  <button id="cuentaIndice" class="btn btn-link">Cuenta Indice</button>
+                </div>
+                <div class="container col-sm-12 text-center">
+                  <button id="actualizarEdad" class="btn btn-warning">Actualizar Edad</button>
+                  <button id="actualizarCorreo" class="btn btn-warning">Actualizar Correo</button>
+                </div>
+                  <div class="container col-sm-12 text-center">
+                  <button id="eliminar" class="btn btn-danger">Eliminar Usuario</button>
+                  <button id="limpiador" class="btn btn-danger" onclick="limpiar()">Limpiar Pantalla</button>
+                </div>
+              </div>
+              <h3>Pantalla de Salida</h3>
+            <div id="txStatus" class="col-sm-6"></div>
+          </div>
+      </div>
+
+    <script>function limpiar() {
+            document.getElementById("cuenta").value = "";
+            document.getElementById("correo").value = "";
+            document.getElementById("edad").value = "";
+            document.getElementById("indice").value = "";
+            $("#txStatus").empty();
+        }</script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+    <!-- Funciones especiales -->
+    <script src="js/funciones.js"></script>
+  </body>
+</html>
