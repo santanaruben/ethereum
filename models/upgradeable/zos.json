@@ -1,0 +1,8 @@
+{
+  "zosversion": "2",
+  "name": "Upgradeable",
+  "version": "0.1.0",
+  "contracts": {
+    "Note": "Note"
+  }
+}
