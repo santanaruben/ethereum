@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Biblioteca</title>
+
+    <link href="css/micss.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    
+  </head>
+  <body>
+      <header class="navbar sticky-top navbar-dark bg-dark">
+              <a class="navbar-brand" href="" data-toggle="tooltip" data-placement="bottom" title="Click para recargar la página">
+                <font face="Papyrus">Biblioteca</font>
+              </a>
+              <!--Botón Modal-->
+              <button type="button" id="botonDeUsuario" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">
+                <div class="row align-items-center no-gutters"><div class="col mr1"><img src="" width="30" height="30" alt="" id="imageBox" class="rounded"></div><strong><div id="botonUsuario" class="col"></div></strong></button></div>
+                <!--Hasta aquí Botón Modal-->
+        </header>
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center mt-1">Biblioteca</h1>
+          <hr>
+        </div>
+      </div>
+      
+      <div id="app" class="container-fluid">
+          <div class="row">
+              <div class="col-6">
+<!--Navs tabbed-->  
+<nav>
+    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-usuario-tab" data-toggle="tab" href="#nav-usuario" role="tab" aria-controls="nav-usuario" aria-selected="true" onclick="limpiar()">Usuario</a>
+      <a class="nav-item nav-link" id="nav-bibliotecario-tab" data-toggle="tab" href="#nav-bibliotecario" role="tab" aria-controls="nav-bibliotecario" aria-selected="false" onclick="limpiar()">Bibliotecario</a>
+      <a class="nav-item nav-link" id="nav-libro-tab" data-toggle="tab" href="#nav-libro" role="tab" aria-controls="nav-libro" aria-selected="false" onclick="limpiar()">Libro</a>
+      <a class="nav-item nav-link" id="nav-prestarLibro-tab" data-toggle="tab" href="#nav-prestarLibro" role="tab" aria-controls="nav-prestarLibro" aria-selected="false" onclick="limpiar()">Préstamo-Libros</a>
+      <a class="nav-item nav-link" id="nav-transferirLibro-tab" data-toggle="tab" href="#nav-transferirLibro" role="tab" aria-controls="nav-transferirLibro" aria-selected="false" onclick="limpiar()">Transferir-Libros</a>
+      <a class="nav-item nav-link" id="nav-eventos-tab" data-toggle="tab" href="#nav-eventos" role="tab" aria-controls="nav-eventos" aria-selected="false" onclick="limpiar()">Eventos</a>
+    </div>
+  </nav>
+  <div class="tab-content mb-3" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-usuario" role="tabpanel" aria-labelledby="nav-usuario-tab">
+          
+        <h3 class="mb-2">Usuario</h3>
+        <form novalidate>
+          
+            <div class="form-row">
+                    <label for="ingresarImagenUsuario" class="col-3 col-form-label mb-4">
+                            Imagen
+                        </label>
+                        <div id="divImagenUsuario" class="divImagenUsuario col-3 mb-4" height="100" width="100" >
+                            <a id="cuadroImagenUsuario" href="#"><img id="no-user" class="image img-fluid img-thumbnail rounded-circle" src="../img/imgs/no-user.jpg"
+                                data-toggle="tooltip" data-placement="left" title="Haz click para cambiar la imagen"></a>
+                        </div>
+                        <div class="col-3">
+                            <button id="botonIngresarImagenUsuario" class="btn btn-primary" style="display:none">Cargar</button>
+                            <input id="ingresarImagenUsuario" type="file" style="display:none">
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-success" id="botonSalvarImagen" onclick="salvarImagenUsuario();" style="display:none">Salvar</button><!--onclick="salvarImagenUsuario();" -->
+                        </div>
+                        </div>
+        <div class="form-row">
+            <label for="cuenta" class="col-3 col-form-label mb-4">
+                Cuenta
+            </label>
+            <div class="col-9 claseObtenerUsuario claseInsertarUsuario">
+                <input type="text" class="form-control claseInsertarUsuario" id="cuenta" onkeypress="return soloHexadecimales(event)"
+                placeholder="Ingresa la cuenta del Usuario" pattern="[(A-f),(0-9),(x)]{40,42}" autofocus required>
+                <div class="valid-feedback" id="cuentaTrue">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="cuentaFalse">
+                    ¡La cuenta debe contener 40 caracteres hexadecimales!
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="nombre" class="col-3 col-form-label">
+              Nombre
+            </label>
+            <div class="col-9 claseInsertarUsuario">
+                <input type="text" class="form-control" id="nombre" onkeypress="return soloLetras(event)"
+                placeholder="Ingresa el nombre de usuario" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]{2,50}" required>
+                <div class="valid-feedback" style="position:absolute">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" style="position:absolute">
+                    ¡Tan fácil que es colocar un nombre!
+                </div>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+          <div name="botones" class="container col-12 text-center" id="bt1">
+            <button type="button" id="insertarUsuario" class="btn btn-primary">Insertar Usuario</button>
+            <button type="button" id="obtenerUsuario" class="btn btn-success">Información Usuario</button>
+            <button type="button" id="editarUsuario" class="btn btn-warning">Editar Usuario</button>
+            <button type="button" id="eliminarUsuario" class="btn btn-danger">Eliminar Usuario</button>
+          </div>
+        </div>
+        </form>
+
+    </div>
+
+    <div class="tab-pane fade" id="nav-bibliotecario" role="tabpanel" aria-labelledby="nav-bibliotecario-tab">
+      
+        <h3 class="mb-5">Bibliotecario</h3>
+        <form novalidate>
+        <div class="form-row">
+            
+            <label for="cuentaBibliotecario" class="col-3 col-form-label mb-1">
+                Cuenta
+            </label>
+            <div class="col-9 claseBibliotecario">
+                <input type="text" class="form-control" id="cuentaBibliotecario" onkeypress="return soloHexadecimales(event)"
+                placeholder="0x1" pattern="[(A-f),(0-9),(x)]{40,42}" autofocus required>
+                <div class="valid-feedback" style="position:absolute">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" style="position:absolute">
+                    ¡La cuenta debe contener 40 caracteres hexadecimales!
+                </div>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+          <div class="container col-12 text-center" id="bt2">
+              <button type="button" id="asignarBibliotecario" class="btn btn-primary">Asignar Bibliotecario</button>
+              <button type="button" id="comprobarBibliotecario" class="btn btn-success">Comprobar Bibliotecario</button>
+              <button type="button" id="removerBibliotecario" class="btn btn-danger">Remover Bibliotecario</button>
+          </div>
+        </div>
+        </form>
+    </div>
+
+    <div class="tab-pane fade" id="nav-libro" role="tabpanel" aria-labelledby="nav-libro-tab">
+      
+        <h3 class="mb-2">Libro</h3>
+        <form novalidate>
+
+                <div class="form-row">
+                    <label for="ingresarImagenLibro" class="col-3 col-form-label mb-4">
+                        Imagen
+                    </label>
+                    <div id="divImagenLibro" class="divImagenLibro col-3 mb-4" height="100" width="100" >
+                        <a id="cuadroImagenLibro" href="#"><img id="no-book" class="image img-fluid img-thumbnail rounded-circle" src="../img/imgs/no-book.jpg"
+                            data-toggle="tooltip" data-placement="left" title="Haz click para cambiar la imagen"></a>
+                    </div>
+                    <div class="col-3">
+                        <button id="botonIngresarImagenLibro" class="btn btn-primary" style="display:none">Cargar</button>
+                        <input id="ingresarImagenLibro" type="file" style="display:none">
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn btn-success" id="botonSalvarImagenLibro" onclick="salvarImagenLibro();" style="display:none">Salvar</button><!--onclick="salvarImagenUsuario();" -->
+                    </div>
+                </div>
+
+        <div class="form-row">
+            
+            <label for="idLibro" class="col-3 col-form-label mb-4">
+                ID
+            </label>
+            <div class="col-9 claseAgregarLibro claseObtenerLibro claseEditarLibro">
+                <input type="text" class="form-control" id="idLibro" onkeypress="return soloNumeros(event)"
+                placeholder="1" pattern="[0-9]{1,7}" autofocus required>
+            <div class="valid-feedback" id="cuentaTrue2">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="cuentaFalse2">
+                    ¡Debe tener algún valor numérico!
+                </div>
+              </div>
+                <label for="nombreLibro" class="col-3 col-form-label mb-4">
+                    Nombre
+                  </label>
+                  <div class="col-9 claseAgregarLibro claseEditarLibro">
+                      <input type="text" class="form-control" id="nombreLibro"
+                      placeholder="Fundación e Imperio" pattern="[a-zA-ZñÑ1234657890áéíóúÁÉÍÓÚ\s-]{2,50}" required>
+                  <div class="valid-feedback" id="cuentaTrue8">
+                      ¡Se ve bien!
+                  </div>
+                  <div class="invalid-feedback" id="cuentaFalse8">
+                      ¡Aqui va el nombre del libro!
+                  </div>
+                </div>
+                  <label for="autor" class="col-3 col-form-label mb-4">
+                      Autor
+                    </label>
+                    <div class="col-9 claseAgregarLibro claseEditarLibro">
+                        <input type="text" class="form-control" id="autor" onkeypress="return soloLetras(event)"
+                        placeholder="Isaac Asimov" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]{2,50}" required>
+                    <div class="valid-feedback" id="cuentaTrue9">
+                        ¡Se ve bien!
+                    </div>
+                    <div class="invalid-feedback" id="cuentaFalse9">
+                        ¡Aqui va el autor del libro!
+                    </div>
+                  </div>
+                    <label for="estado" class="col-3 col-form-label mb-4">
+                        Estado
+                      </label>
+                      <!--<div class="form-group col-9 claseAgregarLibro claseEditarLibro">
+                          <input type="text" class="form-control" id="estado" onkeypress="return soloNumeros(event)"
+                          placeholder="Nuevo/Deteriorado/Dañado" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]{2,11}" required>-->
+                          <div class="form-group col-9 claseAgregarLibro claseEditarLibro">
+                              <div class="row justify-content-around">
+                                <input class="form-check-input" type="radio" name="choice" id="estado" value="0" style="display:none">
+                            <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="choice" id="estado" value="1" required>
+                                  <label class="form-check-label" for="Nuevo">
+                                                        Nuevo
+                                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="choice" id="estado" value="2" disabled>
+                                        <label class="form-check-label" for="Reparado">
+                                              Reparado
+                                                          </label>
+                                      </div>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="choice" id="estado" value="3">
+                                  <label class="form-check-label" for="Deteriorado">
+                                                        Deteriorado
+                                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="choice" id="estado" value="4">
+                                  <label class="form-check-label" for="Dañado">
+                                                        Dañado
+                                                    </label>
+                                    <div class="valid-feedback" id="cuentaTrue10">
+                                        ¡Ok!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                            ¡Nuevo, Deteriorado o Dañado!
+                                    </div>
+                                </div>
+                            </div>
+                              </div>
+                               <!--                     
+                      <div class="valid-feedback" id="cuentaTrue10">
+                          ¡Ok!
+                      </div>
+                      <div class="invalid-feedback" id="cuentaFalse10">
+                          ¡Nuevo, Deteriorado o Dañado!
+                      </div>
+                    </div>-->
+                      <label for="poseedor" class="col-3 col-form-label">
+                          Poseedor
+                        </label>
+                        <div class="col-9 claseAgregarLibro">
+                            <input class="form-control" id="poseedor" onkeypress="return soloHexadecimales(event)"
+                            placeholder="Cuenta poseedor: 0x123" pattern="[(A-f),(0-9),(x)]{40,42}" autofocus required>
+                        <div class="valid-feedback" id="cuentaTrue7" style="position:absolute">
+                            ¡Se ve bien!
+                        </div>
+                        <div class="invalid-feedback" id="cuentaFalse7" style="position:absolute">
+                            ¡La cuenta debe contener 40 caracteres hexadecimales!
+                        </div>
+                      </div>
+            
+          </div>
+          <br><br>
+
+          <div class="row">
+              <div class="container col-12 text-center" id="bt3">
+                  <button type="button" id="agregarLibro" class="btn btn-primary">Agregar Libro</button>
+                  <button type="button" id="obtenerLibro" class="btn btn-success">Obtener Libro</button>
+                  <button type="button" id="editarLibro" class="btn btn-warning">Editar Libro</button>
+                  <button type="button" id="repararLibro" class="btn btn-info">Reparar Libro</button>
+                  <button type="button" id="eliminarLibro" class="btn btn-danger">Eliminar Libro</button>
+              </div>
+            </div>
+            </form>
+    
+        </div>
+
+    <div class="tab-pane fade" id="nav-prestarLibro" role="tabpanel" aria-labelledby="nav-prestarLibro-tab">
+        <h3 class="mb-5">Préstamo de Libros</h3>
+        <form novalidate>
+        <div class="form-row">
+            
+            <label for="idLibroUsar" class="col-3 col-form-label mb-4">
+                ID
+            </label>
+            <div class="col-9 clasePrestarLibro claseDevolverLibro">
+                <input type="text" class="form-control" id="idLibroUsar" onkeypress="return soloNumeros(event)"
+                placeholder="1" pattern="[0-9]{1,7}" autofocus required>
+            <div class="valid-feedback" id="cuentaTrue3">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="cuentaFalse3">
+                    ¡Debe tener algún valor numérico!
+                </div>
+              </div>
+              <label for="prestar" class="col-3 col-form-label mb-4">
+                Prestar a
+              </label>
+              <div class="col-9 clasePrestarLibro claseDevolverLibro">
+                  <input class="form-control" id="prestar" onkeypress="return soloHexadecimales(event)"
+                  placeholder="Cuenta usuario a quien se le presta: 0x456" pattern="[(A-f),(0-9),(x)]{40,42}" autofocus required>
+              <div class="valid-feedback" id="cuentaTrue4">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="cuentaFalse4">
+                    ¡La cuenta debe contener 40 caracteres hexadecimales!
+                </div>
+              </div>
+                    <label for="estadoLibro" class="col-3 col-form-label mb-4">
+                        Estado
+                      </label>
+                     <!-- <div class="col-9 claseDevolverLibro">
+                          <input type="text" class="form-control" id="estadoLibro" onkeypress="return soloLetras(event)"
+                          placeholder="Nuevo/Deteriorado/Dañado" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]{2,11}" required>
+                      <div class="valid-feedback" id="cuentaTrue6">
+                          ¡Ok!
+                      </div>
+                      <div class="invalid-feedback" id="cuentaFalse6">
+                          ¡Nuevo, Deteriorado o Dañado!
+                      </div>
+                    </div>-->
+                    
+                    <div class="form-group col-9 claseDevolverLibro">
+                        <div class="row justify-content-around">
+                          <input class="form-check-input" type="radio" name="estadoLibro" id="estadoLibro" value="0" style="display:none">
+                      <div class="form-check">
+                            <input class="form-check-input" type="radio" name="estadoLibro" id="estadoLibro" value="1" required>
+                            <label class="form-check-label" for="Nuevo">
+                                                  Nuevo
+                                              </label>
+                          </div>
+
+                          <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="estadoLibro" id="estadoLibro" value="2" disabled>
+                                  <label class="form-check-label" for="Reparado">
+                                        Reparado
+                                                    </label>
+                                </div>
+
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="estadoLibro" id="estadoLibro" value="3">
+                            <label class="form-check-label" for="Deteriorado">
+                                                  Deteriorado
+                                              </label>
+                          </div>
+
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="estadoLibro" id="estadoLibro" value="4">
+                            <label class="form-check-label" for="Dañado">
+                                                  Dañado
+                                              </label>
+                              <div class="valid-feedback" id="cuentaTrue10">
+                                  ¡Ok!
+                              </div>
+                              <div class="invalid-feedback">
+                                      ¡Nuevo, Deteriorado o Dañado!
+                              </div>
+                          </div>
+                      </div>
+                        </div>
+          </div>
+          <br><br>
+
+          <div class="row">
+              <div class="container col-12 text-center" id="bt4">
+                  <button type="button" id="prestarLibro" class="btn btn-primary">Prestar Libro</button>
+                  <button type="button" id="devolverLibro" class="btn btn-success">Devolver Libro</button>
+              </div>
+            </div>
+            </form>
+    </div>
+
+    <div class="tab-pane fade" id="nav-transferirLibro" role="tabpanel" aria-labelledby="nav-transferirLibro-tab">
+        <h3 class="mb-5">Transferencia de Libros</h3>
+        <form novalidate>
+        <div class="form-row">
+            
+            <label for="idLibroTransferir" class="col-3 col-form-label mb-4">
+                ID
+            </label>
+            <div class="col-9 claseTransferirLibro">
+                <input type="text" class="form-control" id="idLibroTransferir" onkeypress="return soloNumeros(event)"
+                placeholder="1" pattern="[0-9]{1,7}" autofocus required>
+                <div class="valid-feedback" id="cuentaTrue3">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="cuentaFalse3">
+                    ¡Debe tener algún valor numérico!
+                </div>
+                </div>
+            <label for="transferir" class="col-3 col-form-label">
+                Transferir a
+            </label>
+            <div class="col-9 claseTransferirLibro">
+                <input class="form-control" id="transferir" onkeypress="return soloHexadecimales(event)"
+                placeholder="Cuenta nuevo poseedor: 0x456" pattern="[(A-f),(0-9),(x)]{40,42}" autofocus required>
+                <div class="valid-feedback" id="cuentaTrue5" style="position:absolute">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" id="cuentaFalse5" style="position:absolute">
+                    ¡La cuenta debe contener 40 caracteres hexadecimales!
+                </div>
+            </div>
+            
+          </div>
+          <br><br>
+
+          <div class="row">
+              <div class="container col-12 text-center" id="bt4">
+                  <button type="button" id="transferirPropiedadLibro" class="btn btn-warning">Transferir Libro</button>
+              </div>
+            </div>
+            </form>
+    </div>
+
+    <div class="tab-pane fade" id="nav-eventos" role="tabpanel" aria-labelledby="nav-eventos-tab">
+        <h3 class="mb-5">Eventos</h3>
+        <form class="needs-validation" novalidate>
+        <div class="form-row">
+            
+            <label for="cuentaBusqueda" class="col-3 col-form-label mb-1">
+                Cuenta
+            </label>
+            <div class="col-9">
+                <input type="text" class="form-control" id="cuentaBusqueda" onkeypress="return soloHexadecimales(event)"
+                placeholder="0x1" pattern="[(A-f),(0-9),(x)]{40,42}" autofocus required>
+                <div class="valid-feedback" style="position:absolute">
+                    ¡Se ve bien!
+                </div>
+                <div class="invalid-feedback" style="position:absolute">
+                    ¡La cuenta debe contener 40 caracteres hexadecimales!
+                </div>
+            </div>
+            
+          </div>
+
+          <div class="form-row">
+            
+                <label for="idLibroBuscado" class="col-3 col-form-label mb-1">
+                    Id Libro
+                </label>
+                <div class="col-9">
+                    <input type="text" class="form-control" id="idLibroBuscado" onkeypress="return soloNumeros(event)"
+                    placeholder="1" pattern="[0-9]{1,7}" autofocus required>
+                    <div class="valid-feedback" style="position:absolute">
+                        ¡Se ve bien!
+                    </div>
+                    <div class="invalid-feedback" style="position:absolute">
+                        ¡El id del libro debe ser un caracter numérico!
+                    </div>
+                </div>
+                
+              </div>
+          <br><br>
+  
+          <div class="row">
+              <div class="container col-12 text-center" id="bt5">
+                  <button type="button" id="eventoNuevoUsuario" class="btn btn-success">Nuevo Usuario</button>
+                  <button type="button" id="eventoNuevoLibro" class="btn btn-info">Nuevo Libro</button>
+              </div>
+            </div>
+            </form>
+    
+        </div>
+
+  </div>
+  <div class="row">
+    <div class="container col-12 text-center">
+      <button type="reset" id="limpiador" class="btn btn-link" onclick="limpiar()">Limpiar Campos</button>
+    </div>
+  </div>
+            </div>
+            
+              <!--Hasta aqui pantalla de entrada-->
+              
+              <!--Pantalla de salida-->
+              <div class="col">
+                <h3 class="mb-3">Pantalla de Salida</h3>
+                <div class="row">
+                  <div id="txStatus" class="col" class="txStatus"></div>
+                </div>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered justify-content-around modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Tus Libros</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row" id="modal-body">
+                            
+                            <!--<div class="modal-libro row justify-content-around" id="modal-libro"></div>-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--hasta aqui el modal-->
+
+
+              </div>
+          </div>
+      </div>
+
+    
+    <!-- Plugins, librerías y frameworks -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <!--<script src="js/vue.js"></script> -->
+    <!-- Funciones especiales y de validación -->
+    <script src="js/funciones.js"></script>
+    <script src="js/imagenUsuario.js"></script>
+    <script src="js/imagenLibro.js"></script>
+    <script src="js/FileSaver.js"></script>
+    <script src="js/canvas-to-blob.js"></script>
+    <script src="js/load-image.all.min.js"></script>
+    <!-- Controlador -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
